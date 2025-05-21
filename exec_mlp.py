@@ -3,7 +3,7 @@ from itertools import combinations_with_replacement
 import subprocess
 import os
 
-base_feats = [16, 32, 64]
+base_feats = [4, 8, 16, 32, 64]
 
 feature_sets = [
     list(combo)
@@ -12,7 +12,7 @@ feature_sets = [
 ]
 
 # Directorio de resultados
-exp = "SimpleMLP"
+exp = "seq2pp"
 results_dir = f"results/{exp}"
 os.makedirs(results_dir, exist_ok=True)
 

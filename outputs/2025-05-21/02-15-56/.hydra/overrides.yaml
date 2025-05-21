@@ -1,0 +1,8 @@
+- model=seq2motif
+- model.num_conv=2
+- model.features=[8,8,8]
+- model.skip=0
+- exp=seq2pp
+- run=s2pp_nc2_skip_0_f8_8_8
+- command=train
+- train.out_path=results/seq2pp/s2pp_nc2_skip_0_f8_8_8

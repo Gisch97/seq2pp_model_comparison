@@ -1,0 +1,7 @@
+- exp=seq2pp
+- run=s2pp_nc2_skip_1_f8_16_16
+- model=seq2motif
+- model.num_conv=2
+- model.features=[8,16,16]
+- model.skip=1
+- command=test
