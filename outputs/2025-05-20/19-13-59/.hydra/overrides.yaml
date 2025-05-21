@@ -1,0 +1,4 @@
+- exp=SimpleCNN
+- run=nc1_f4
+- command=test
+- test.out_path=results/SimpleCNN/nc1_f4

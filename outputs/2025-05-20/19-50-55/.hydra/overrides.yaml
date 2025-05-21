@@ -1,0 +1,6 @@
+- exp=SimpleCNN
+- run=nc1_f16
+- model=simplecnn
+- model.num_conv=1
+- model.features=[16]
+- command=test

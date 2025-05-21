@@ -1,0 +1,31 @@
+name: hydra_dev
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch=2.1
+  - pytorch-cuda=12.1
+  - pandas=2.0.2
+  - numpy=1.24.2
+  - scikit-learn=1.2.1
+  - tqdm
+  - ipykernel
+  - mlflow
+  - pygments
+  - jupyterlab
+  - hydra-core
+  - omegaconf
+  - pyyaml
+  - matplotlib
+  - tensorboard
+  - python-json-logger
+  - flake8
+  - black
+  - isort
+  - notebook
+  - pip:
+      - pre-commit

@@ -1,0 +1,3 @@
+- max_epochs=1
+- run=log0
+- model=simplecnn

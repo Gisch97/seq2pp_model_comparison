@@ -1,0 +1,5 @@
+- exp=SimpleMLP_compress
+- run=SMLP_f4_8_8
+- model=simplemlp
+- model.features=[4,8,8]
+- command=test

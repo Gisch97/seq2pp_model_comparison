@@ -1,0 +1,15 @@
+# conf/model/seq2motif.yaml
+_target_: src.models.simplecnn.SimpleCNN
+
+# parámetros del constructor Seq2Motif
+verbose: true
+train_len: 0               # se sobreescribirá en tiempo de ejecución
+device: cuda
+lr: 5e-2
+
+# arquitectura (se pasan luego a build_graph)
+embedding_dim: 4
+num_conv: 2
+pool_mode: avg
+features: [4, 4, 4, 4, 4]
+input_length: 128

@@ -1,0 +1,34 @@
+command: train
+exp: test_0
+run: default_run
+verbose: true
+device: cuda
+cache_path: cache/
+model:
+  model_name: seq2motif
+  model:
+    embedding_dim: 4
+    features:
+    - 4
+    - 8
+    - 16
+    - 32
+    - 64
+    num_conv: 2
+    pool_mode: avg
+    up_mode: transpose
+    addition: cat
+    skip: 1
+commands:
+  valid_split: 0.1
+  max_len: 128
+  batch_size: 64
+  nworkers: 4
+  patience: 30
+  max_epochs: 50
+  lr: 0.05
+  train:
+    train_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/train_0.csv
+    valid_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/valid_0.csv
+    out_path: results/test0/
+    train_swaps: 0

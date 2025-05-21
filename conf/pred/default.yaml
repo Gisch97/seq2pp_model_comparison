@@ -1,0 +1,7 @@
+pred_file: null
+sequence_name: console_input
+model_weights: null
+out_path: null
+logits: false
+draw: false
+draw_resolution: 128

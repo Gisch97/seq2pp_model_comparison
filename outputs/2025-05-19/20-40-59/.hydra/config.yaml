@@ -1,0 +1,52 @@
+model:
+  _target_: src.models.unet.seq2motif.Seq2Motif
+  verbose: true
+  train_len: 0
+  device: cuda
+  lr: 0.1
+  embedding_dim: 4
+  num_conv: 1
+  pool_mode: avg
+  up_mode: transpose
+  skip: 1
+  addition: cat
+  features:
+  - 4
+  - 4
+  - 4
+  - 4
+  - 4
+  input_length: 128
+train:
+  train_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/train_0.csv
+  valid_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/valid_0.csv
+  out_path: results/test0_exec/run_lr_0.1_nc_1
+  continue_training: false
+  train_swaps: 0
+test:
+  test_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/test_0.csv
+  model_weights: results/${exp}/${run}/weights.pmt
+  out_path: results/${exp}/${run}/test.csv
+  test_swaps: 0
+pred:
+  pred_file: null
+  sequence_name: console_input
+  model_weights: null
+  out_path: null
+  logits: false
+  draw: false
+  draw_resolution: 128
+model_name: seq2motif
+command: train
+exp: test0_exec
+run: run_lr_0.1_nc_1
+verbose: true
+cache_path: cache/
+valid_split: 0.1
+min_len: 0
+max_len: 128
+batch_size: 64
+nworkers: 4
+patience: 30
+max_epochs: 50
+lr: 0.05

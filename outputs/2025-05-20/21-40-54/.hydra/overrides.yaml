@@ -1,0 +1,6 @@
+- model=simplemlp
+- model.features=[8,8,16]
+- exp=SimpleMLP_compress
+- run=SMLP_f8_8_16
+- command=train
+- train.out_path=results/SimpleMLP_compress/SMLP_f8_8_16

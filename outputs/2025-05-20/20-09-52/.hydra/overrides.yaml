@@ -1,0 +1,7 @@
+- model=simplecnn
+- model.num_conv=2
+- model.features=[8]
+- exp=SimpleCNN
+- run=nc2_f8
+- command=train
+- train.out_path=results/SimpleCNN/nc2_f8

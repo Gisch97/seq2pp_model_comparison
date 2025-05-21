@@ -1,0 +1,5 @@
+- max_epochs=1
+- model=simplemlp
+- exp=dev_mlp
+- run=test0
+- command=test

@@ -1,0 +1,8 @@
+- exp=SimpleCNN
+- run=nc1_f4
+- model=simplecnn
+- model.num_conv=1
+- model.features=[4]
+- command=test
+- test.model_weights=results/SimpleCNN/nc1_f4/weigths.pmt
+- test.out_path=results/SimpleCNN/nc1_f4

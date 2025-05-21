@@ -1,0 +1,22 @@
+defaults:
+  - _self_  
+  - model: seq2motif
+  - train: default
+  - test: default
+  - pred: default
+
+# Parámetros comunes
+model_name: ${model._target_}
+command: train
+exp: test_logs
+run: default_run
+verbose: true
+cache_path: cache/
+valid_split: 0.1
+min_len: 0
+max_len: 128
+batch_size: 64
+nworkers: 4
+patience: 30
+max_epochs: 50
+lr: 5e-2

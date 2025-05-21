@@ -1,0 +1,6 @@
+- model=simplemlp
+- model.features=[4,4]
+- exp=SimpleMLP_compress
+- run=SMLP_f4_4
+- command=train
+- train.out_path=results/SimpleMLP_compress/SMLP_f4_4

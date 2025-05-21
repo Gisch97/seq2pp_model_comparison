@@ -1,0 +1,5 @@
+- model.lr=0.01
+- model.num_conv=1
+- exp=test_exec
+- run=run_lr_0.01_nc_1
+- train.out_path=results/test_exec/run_lr_0.01_nc_1

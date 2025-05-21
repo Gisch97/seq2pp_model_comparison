@@ -1,0 +1,13 @@
+# conf/model/seq2motif.yaml
+_target_: src.models.simplemlp.SimpleMLP
+
+# parámetros del constructor Seq2Motif
+verbose: true
+train_len: 0               # se sobreescribirá en tiempo de ejecución
+device: cuda
+lr: 5e-2
+
+# arquitectura (se pasan luego a build_graph)
+embedding_dim: 4
+features: [4, 4, 4, 4, 4]
+input_length: 128

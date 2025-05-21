@@ -1,0 +1,7 @@
+- model=simplecnn
+- model.num_conv=2
+- model.features=[4]
+- exp=SimpleCNN
+- run=nc2_f4
+- command=train
+- train.out_path=results/SimpleCNN/nc2_f4

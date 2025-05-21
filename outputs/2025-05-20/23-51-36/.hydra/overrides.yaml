@@ -1,0 +1,6 @@
+- model=simplemlp
+- model.features=[32,64,64]
+- exp=SimpleMLP
+- run=SMLP_f32_64_64
+- command=train
+- train.out_path=results/SimpleMLP/SMLP_f32_64_64
