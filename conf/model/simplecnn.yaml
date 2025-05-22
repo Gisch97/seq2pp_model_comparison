@@ -9,7 +9,6 @@ lr: 5e-2
 
 # arquitectura (se pasan luego a build_graph)
 embedding_dim: 4
-num_conv: 2
-pool_mode: avg
 features: [4, 4, 4, 4, 4]
+kernels: [3, 3, 3, 3, 3]
 input_length: 128

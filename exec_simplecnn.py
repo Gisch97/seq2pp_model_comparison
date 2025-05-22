@@ -4,58 +4,65 @@ import subprocess
 import os
 
 # Sólo dos valores de num_conv
-ncs = [1, 2]
-base_feats = [4, 8, 16, 32]
+base_feats = [8, 16, 32, 64]
 
+# feature_sets = [
+#     list(combo)
+#     for r in range(2, 5)
+#     for combo in combinations_with_replacement(base_feats, r)
+# ]
 feature_sets = [
-    list(combo)
-    for r in range(1, 4)
-    for combo in combinations_with_replacement(base_feats, r)
+    [4, 8, 16, 32, 64],
+    [8, 8, 16, 32, 64],
+    [8, 16, 32, 64, 128],
+    [8, 16, 24, 32, 48],
+    [6, 8, 12, 16, 24],
 ]
 
 
 # Directorio de resultados
-exp = "SimpleCNN_compress"
+exp = "SimpleCNN_no_pooling"
 results_dir = f"results/{exp}"
 os.makedirs(results_dir, exist_ok=True)
 
-for skip in [0, 1]:
-    for nc in ncs:
-        for feats in feature_sets:
+for feats in feature_sets:
+    k = [3 for _ in range(len(feats))]
 
-            # nombre de la corrida
-            feat_str = ",".join(str(f) for f in feats)
-            run = f"s2pp_nc{nc}_skip_{skip}_f{'_'.join(str(f) for f in feats)}"
+    # nombre de la corrida
+    feat_str = ",".join(str(f) for f in feats)
+    kernel_str = ",".join(str(k) for k in k)
+    run = f"scnn_k_3_f{'_'.join(str(f) for f in feats)}"
+    if os.path.exists(f"{results_dir}/{run}"):
+        print(f"→ SKIP: {run} already exists")
+        continue
 
-            # Training
-            train_cmd = [
-                "python3",
-                "-m",
-                "src.main",
-                "model=seq2motif",
-                f"model.num_conv={nc}",
-                f"model.features=[{feat_str}]",
-                f"model.skip=[{skip}]",
-                f"exp={exp}",
-                f"run={run}",
-                "command=train",
-                f"train.out_path={results_dir}/{run}",
-            ]
-            print("→ TRAIN:", " ".join(train_cmd))
-            subprocess.run(train_cmd, check=True)
+    # Training
+    train_cmd = [
+        "python3",
+        "-m",
+        "src.main",
+        "model=simplecnn",
+        f"model.features=[{feat_str}]",
+        f"model.kernels=[{kernel_str}]",
+        f"exp={exp}",
+        f"run={run}",
+        "command=train",
+        f"train.out_path={results_dir}/{run}",
+    ]
+    print("→ TRAIN:", " ".join(train_cmd))
+    subprocess.run(train_cmd, check=True)
 
-            # Testing
-            test_cmd = [
-                "python3",
-                "-m",
-                "src.main",
-                f"exp={exp}",
-                f"run={run}",
-                "model=seq2motif",
-                f"model.num_conv={nc}",
-                f"model.features=[{feat_str}]",
-                f"model.skip=[{skip}]",
-                "command=test",
-            ]
-            print("→ TEST: ", " ".join(test_cmd))
-            subprocess.run(test_cmd, check=True)
+    # Testing
+    test_cmd = [
+        "python3",
+        "-m",
+        "src.main",
+        f"exp={exp}",
+        f"run={run}",
+        "model=simplecnn",
+        f"model.features=[{feat_str}]",
+        f"model.kernels=[{kernel_str}]",
+        "command=test",
+    ]
+    print("→ TEST: ", " ".join(test_cmd))
+    subprocess.run(test_cmd, check=True)

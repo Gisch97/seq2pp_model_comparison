@@ -1,0 +1,4 @@
+- exp=dev_simplecnn
+- model=simplecnn
+- max_epochs=1
+- run=0

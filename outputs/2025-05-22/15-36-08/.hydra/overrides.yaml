@@ -1,0 +1,6 @@
+- exp=SimpleCNN_no_pooling
+- run=scnn_k_3_f4
+- model=simplecnn
+- model.features=[4]
+- model.kernels=[[3]]
+- command=test

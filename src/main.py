@@ -55,6 +55,8 @@ def main(cfg: DictConfig):
             }
         )
 
+        mlflow.set_tag("model", cfg.model._target_)
+        mlflow.set_tag("command", cfg.command)
         if cfg.command == "train":
             run_train(cfg)
         elif cfg.command == "test":
@@ -135,10 +137,6 @@ def _setup_train(cfg):
     # en run_train:
     net = instantiate(cfg.model, train_len=len(train_loader), verbose=cfg.verbose)
 
-    # 4) Logging de parámetros generales
-    mlflow.log_params(dict(cfg.train))
-    mlflow.set_tag("model", cfg.model._target_)
-    mlflow.set_tag("command", cfg.command)
     return net, train_loader, valid_loader
 
 

@@ -1,0 +1,7 @@
+- model=simplecnn
+- model.features=[8,8,64,64]
+- model.kernels=[3,3,3,3]
+- exp=SimpleCNN_no_pooling
+- run=scnn_k_3_f8_8_64_64
+- command=train
+- train.out_path=results/SimpleCNN_no_pooling/scnn_k_3_f8_8_64_64

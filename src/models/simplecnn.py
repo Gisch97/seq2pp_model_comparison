@@ -7,6 +7,7 @@ import mlflow
 from src.models.unet.conv_layers import N_Conv, DownBlock, OutConv
 from src.metrics import compute_metrics
 
+
 class SimpleCNN(nn.Module):
     def __init__(
         self,
@@ -15,14 +16,13 @@ class SimpleCNN(nn.Module):
         lr: float,
         verbose: bool,
         embedding_dim: int,
-        num_conv: int,
-        pool_mode: str,
         features: list,
+        kernels: list,
         input_length: int,
-        **kwargs
+        **kwargs,
     ):
         super().__init__()
-        
+
         self.device = tr.device(device)
         self.hyperparameters = {
             "train_len": train_len,
@@ -34,9 +34,8 @@ class SimpleCNN(nn.Module):
 
         self.build_graph(
             embedding_dim=embedding_dim,
-            num_conv=num_conv,
-            pool_mode=pool_mode,
             features=features,
+            kernels=kernels,
         )
 
         self.verbose = verbose
@@ -48,54 +47,63 @@ class SimpleCNN(nn.Module):
     def build_graph(
         self,
         embedding_dim: int,
-        num_conv: int,
-        pool_mode: str,
         features: list,
+        kernels: list,
     ):
 
-        encoder_blocks = len(features) - 1
-        self.L_min = self.input_length // (2**(encoder_blocks))
+        num_convs = len(features) - 1
+        self.L_min = self.input_length // (2 ** (num_convs))
         volume = [(self.input_length / 2**i) * f for i, f in enumerate(features)]
-        self.restore_dim = embedding_dim * self.L_min
         self.out_dim = 1
         self.architecture = {
             "arc_embedding_dim": embedding_dim,
             "arc_initial_volume": 4 * self.input_length,
             "arc_latent_volume": volume[-1],
             "arc_features": features,
-            "arc_num_conv": num_conv,
-            "arc_pool_mode": pool_mode
+            "arc_kernels": kernels,
         }
 
-        self.inc = N_Conv(embedding_dim, features[0], num_conv)
-        self.down = nn.ModuleList(
-            [
-                DownBlock(
-                    in_channels=features[i],
-                    out_channels=features[i + 1],
-                    num_conv=num_conv,
-                    pool_mode=pool_mode,
-                )
-                for i in range(encoder_blocks)
-            ]
+        self.inc = nn.Sequential(
+            nn.Conv1d(
+                in_channels=embedding_dim,
+                out_channels=features[0],
+                kernel_size=kernels[0],
+                padding="same",
+                stride=1,
+            ),
+            nn.BatchNorm1d(features[0]),
+            nn.ReLU(inplace=True),
         )
-        self.restore = nn.Linear(features[-1] * self.L_min, self.input_length)
-        
+
+        self.layers = nn.ModuleList()
+        for i in range(num_convs):
+            self.layers.append(
+                nn.Sequential(
+                    nn.Conv1d(
+                        in_channels=features[i],
+                        out_channels=features[i + 1],
+                        kernel_size=kernels[i + 1],
+                        padding="same",
+                        stride=1,
+                    ),
+                    nn.BatchNorm1d(features[i + 1]),
+                    nn.ReLU(inplace=True),
+                )
+            )
+
         self.outc = OutConv(features[-1], self.out_dim)
-        
-        
+
     def forward(self, x):
         x = x.to(self.device)
         x = self.inc(x)
-        encoder_outputs = [x]
-        for _, down in enumerate(self.down):
-            x = down(x)
-            encoder_outputs.append(x)
+        feature_maps = [x]
+        for _, conv in enumerate(self.layers):
+            x = conv(x)
+            feature_maps.append(x)
+        x = self.outc(x)
+        y_pred = nn.Sigmoid()(x)
+        return y_pred
 
-        x = x.view(x.shape[0], -1)
-        y_pred = nn.Sigmoid()(self.restore(x))
-        return y_pred.unsqueeze(1)
-    
     def loss_func(self, y_pred, y):
         """yhat and y are [N, L]"""
         y = y.view(y.shape[0], -1)
@@ -161,8 +169,6 @@ class SimpleCNN(nn.Module):
     def pred(self):
         pass
 
-        
-        
     def log_model(self):
         """Logs the model architecture and hyperparameters to MLflow."""
         mlflow.log_params(self.hyperparameters)
