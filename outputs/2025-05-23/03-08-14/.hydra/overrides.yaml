@@ -1,0 +1,6 @@
+- model=seqencoder
+- model.features=[4,8,8]
+- exp=SeqEncoder_srp
+- run=enc_f4_8_8
+- command=train
+- train=srp

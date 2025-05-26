@@ -1,0 +1,7 @@
+- model=seq2motif
+- model.skip=1
+- model.features=[4,32,64]
+- exp=Seq2Motif_srp
+- run=s2m_skip1_f4_32_64
+- command=test
+- test=srp

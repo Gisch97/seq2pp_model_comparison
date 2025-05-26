@@ -1,0 +1,6 @@
+- model=simplemlp
+- model.features=[8,8,64]
+- exp=SimpleMLP_srp
+- run=mlp_f8_8_64
+- command=test
+- test=srp

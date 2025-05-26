@@ -1,0 +1,6 @@
+- model=simplemlp
+- model.features=[8,16,64]
+- exp=SimpleMLP_tRNA
+- run=mlp_f8_16_64
+- command=test
+- test=tRNA

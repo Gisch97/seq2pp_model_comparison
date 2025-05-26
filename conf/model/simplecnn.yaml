@@ -1,7 +1,7 @@
-# conf/model/seq2motif.yaml
+# conf/model/simplecnn.yaml
 _target_: src.models.simplecnn.SimpleCNN
 
-# parámetros del constructor Seq2Motif
+# parámetros del constructor simplecnn
 verbose: true
 train_len: 0               # se sobreescribirá en tiempo de ejecución
 device: cuda

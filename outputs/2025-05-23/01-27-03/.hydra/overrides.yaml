@@ -1,0 +1,7 @@
+- model=seq2motif
+- model.skip=1
+- model.features=[8,16,64]
+- exp=Seq2Motif_tRNA
+- run=s2m_skip1_f8_16_64
+- command=test
+- test=tRNA

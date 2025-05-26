@@ -1,0 +1,4 @@
+test_file: data/ArchiveII/fam-split/test_srp_pp.csv
+model_weights: results/srp/${exp}/${run}/weights.pmt
+out_path: results/srp/${exp}/${run}/test.csv
+test_swaps: 0

@@ -1,0 +1,5 @@
+train_file: data/ArchiveII/fam-split/train_srp_pp.csv
+valid_file: data/ArchiveII/fam-split/valid_srp_pp.csv
+out_path: results/srp/${exp}/${run}/
+continue_training: false
+train_swaps: 0

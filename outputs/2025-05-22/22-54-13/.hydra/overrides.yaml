@@ -1,0 +1,7 @@
+- model=simplecnn
+- model.features=[4,4,4]
+- model.kernels=[3,3,3]
+- exp=SimpleCNN_tRNA
+- run=scnn_k3_f4_4_4
+- command=train
+- train=tRNA

@@ -1,0 +1,6 @@
+- model=seqencoder
+- model.features=[8,8]
+- exp=SeqEncoder_tRNA
+- run=enc_f8_8
+- command=test
+- test=tRNA

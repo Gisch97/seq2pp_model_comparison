@@ -1,0 +1,6 @@
+- model=seqencoder
+- model.features=[4,4,4]
+- exp=SeqEncoder_tRNA
+- run=enc_f4_4_4
+- command=test
+- test=tRNA

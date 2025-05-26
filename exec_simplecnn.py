@@ -6,19 +6,11 @@ import os
 # Sólo dos valores de num_conv
 base_feats = [8, 16, 32, 64]
 
-# feature_sets = [
-#     list(combo)
-#     for r in range(2, 5)
-#     for combo in combinations_with_replacement(base_feats, r)
-# ]
 feature_sets = [
-    [4, 8, 16, 32, 64],
-    [8, 8, 16, 32, 64],
-    [8, 16, 32, 64, 128],
-    [8, 16, 24, 32, 48],
-    [6, 8, 12, 16, 24],
+    list(combo)
+    for r in range(2, 5)
+    for combo in combinations_with_replacement(base_feats, r)
 ]
-
 
 # Directorio de resultados
 exp = "SimpleCNN_no_pooling"

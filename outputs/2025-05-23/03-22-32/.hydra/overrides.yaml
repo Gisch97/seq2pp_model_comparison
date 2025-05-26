@@ -1,0 +1,6 @@
+- model=seqencoder
+- model.features=[8,64,64]
+- exp=SeqEncoder_srp
+- run=enc_f8_64_64
+- command=test
+- test=srp

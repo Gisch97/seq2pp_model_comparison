@@ -10,7 +10,6 @@ from src.embeddings import OneHotEmbedding
 from typing import Union
 
 
-
 class SeqDataset(Dataset):
     def __init__(
         self,
@@ -36,7 +35,6 @@ class SeqDataset(Dataset):
             "sequence" in data.columns and "id" in data.columns
         ), "Dataset should contain 'id' and 'sequence' columns"
 
-
         data["len"] = data.sequence.str.len()
         if max_len is None:
             max_len = max(data.len)
@@ -52,25 +50,25 @@ class SeqDataset(Dataset):
         self.sequences = data.sequence.tolist()
         self.ids = data.id.tolist()
         self.pseudo_probing = data.pseudo_probe
-        self.stem = data.stem
-        self.motifs = data.motifs.tolist()
+        # self.stem = data.stem
+        # self.motifs = data.motifs.tolist()
         self.embedding = OneHotEmbedding()
         self.embedding_size = self.embedding.emb_size
+
     def __len__(self):
         return len(self.sequences)
 
     def __getitem__(self, idx):
         seqid = self.ids[idx]
         sequence = self.sequences[idx]
-        motif = self.motifs[idx]
+        # motif = self.motifs[idx]
         pseudo_probing = self.pseudo_probing[idx]
         pseudo_probing = tr.Tensor(ast.literal_eval(pseudo_probing)).unsqueeze(dim=0)
-        stem = self.stem[idx]
-        stem = tr.Tensor(ast.literal_eval(stem)).unsqueeze(dim=0)
+        # stem = self.stem[idx]
+        # stem = tr.Tensor(ast.literal_eval(stem)).unsqueeze(dim=0)
         L = len(sequence)
         seq_emb = self.embedding.seq2emb(sequence)
-        motif_emb = self.embedding.motif2emb(motif)
-        
+        # motif_emb = self.embedding.motif2emb(motif)
 
         item = {
             "id": seqid,
@@ -78,8 +76,8 @@ class SeqDataset(Dataset):
             "sequence": sequence,
             "embedding": seq_emb,
             "pseudo_probing": pseudo_probing,
-            "stem" : stem,
-            "motif_emb": motif_emb,            
+            # "stem" : stem,
+            # "motif_emb": motif_emb,
         }
         return item
 
@@ -90,16 +88,18 @@ def pad_batch(batch, fixed_length=0):
     if fixed_length == 0:
         fixed_length = max(L)
     embedding_pad = tr.zeros((len(batch), batch[0]["embedding"].shape[0], fixed_length))
-    pseudo_probing_pad = tr.zeros((len(batch), batch[0]["pseudo_probing"].shape[0], fixed_length), dtype=tr.float)
-    stem_pad = tr.zeros((len(batch), batch[0]["stem"].shape[0], fixed_length), dtype=tr.float)
-    motif_emb_pad = tr.zeros((len(batch), batch[0]["motif_emb"].shape[0], fixed_length), dtype=tr.float)
+    pseudo_probing_pad = tr.zeros(
+        (len(batch), batch[0]["pseudo_probing"].shape[0], fixed_length), dtype=tr.float
+    )
+    # stem_pad = tr.zeros((len(batch), batch[0]["stem"].shape[0], fixed_length), dtype=tr.float)
+    # motif_emb_pad = tr.zeros((len(batch), batch[0]["motif_emb"].shape[0], fixed_length), dtype=tr.float)
     mask = tr.zeros((len(batch), fixed_length), dtype=tr.bool)
 
     for k in range(len(batch)):
         embedding_pad[k, :, : L[k]] = batch[k]["embedding"]
-        pseudo_probing_pad[k, :, : L[k]] = batch[k]["pseudo_probing"] 
-        stem_pad[k, :, : L[k]] = batch[k]["stem"] 
-        motif_emb_pad[k, :, : L[k]] = batch[k]["motif_emb"] 
+        pseudo_probing_pad[k, :, : L[k]] = batch[k]["pseudo_probing"]
+        # stem_pad[k, :, : L[k]] = batch[k]["stem"]
+        # motif_emb_pad[k, :, : L[k]] = batch[k]["motif_emb"]
         mask[k, : L[k]] = 1
 
     out_batch = {
@@ -108,8 +108,8 @@ def pad_batch(batch, fixed_length=0):
         "sequence": [b["sequence"] for b in batch],
         "embedding": embedding_pad,
         "pseudo_probing": pseudo_probing_pad,
-        "stem":stem_pad,
-        "motif_emb": motif_emb_pad,
+        # "stem":stem_pad,
+        # "motif_emb": motif_emb_pad,
         "mask": mask,
     }
 

@@ -1,0 +1,4 @@
+test_file: data/ArchiveII/fam-split/test_tRNA_pp.csv
+model_weights: results/tRNA/${exp}/${run}/weights.pmt
+out_path: results/tRNA/${exp}/${run}/test.csv
+test_swaps: 0

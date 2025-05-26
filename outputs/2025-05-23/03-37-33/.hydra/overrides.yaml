@@ -1,0 +1,6 @@
+- model=seqencoder
+- model.features=[16,64]
+- exp=SeqEncoder_tRNA
+- run=enc_f16_64
+- command=train
+- train=tRNA

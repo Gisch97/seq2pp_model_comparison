@@ -1,0 +1,7 @@
+- model=seq2motif
+- model.skip=0
+- model.features=[8,8,32]
+- exp=Seq2Motif_srp
+- run=s2m_skip0_f8_8_32
+- command=train
+- train=srp
