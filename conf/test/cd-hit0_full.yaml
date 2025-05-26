@@ -1,0 +1,4 @@
+test_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/cd_hit_pp/cd_hit_test_0.csv
+model_weights: results/${exp}/${run}/weights.pmt
+out_path: results/${exp}/${run}/test.csv
+test_swaps: 0

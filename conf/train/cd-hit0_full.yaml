@@ -1,0 +1,5 @@
+train_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/cd_hit_pp/cd_hit_train_0.csv
+valid_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/cd_hit_pp/cd_hit_valid_0.csv
+out_path: results/${exp}/${run}/
+continue_training: false
+train_swaps: 0
