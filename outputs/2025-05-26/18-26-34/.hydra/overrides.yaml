@@ -1,0 +1,8 @@
+- model=simplecnn
+- model.features=[8,8,16]
+- model.kernels=[3,3,3]
+- exp=SimpleCNN_cd-hit0_full
+- run=scnn_k3_f8_8_16
+- max_len=512
+- command=train
+- train=cd-hit0_full

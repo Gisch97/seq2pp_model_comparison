@@ -1,0 +1,8 @@
+- model=seqencoder
+- model.features=[32,32,64]
+- model.input_length=512
+- exp=SeqEncoder_cd-hit0_full
+- run=enc_f32_32_64
+- max_len=512
+- command=train
+- train=cd-hit0_full

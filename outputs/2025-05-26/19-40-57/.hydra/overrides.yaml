@@ -1,0 +1,8 @@
+- model=seq2motif
+- model.skip=1
+- model.features=[4,4,16]
+- exp=Seq2Motif_cd-hit0_full
+- run=s2m_skip1_f4_4_16
+- max_len=512
+- command=test
+- test=cd-hit0_full

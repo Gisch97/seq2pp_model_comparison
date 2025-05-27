@@ -1,0 +1,8 @@
+- model=seq2motif
+- model.skip=0
+- model.features=[8,8,8]
+- exp=Seq2Motif_cd-hit0_full
+- run=s2m_skip0_f8_8_8
+- max_len=512
+- command=train
+- train=cd-hit0_full

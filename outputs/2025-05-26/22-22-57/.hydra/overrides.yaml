@@ -1,0 +1,8 @@
+- model=simplemlp
+- model.features=[16,32,32]
+- model.input_length=512
+- exp=SimpleMLP_cd-hit0_full
+- run=mlp_f16_32_32
+- max_len=512
+- command=train
+- train=cd-hit0_full

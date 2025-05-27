@@ -1,0 +1,8 @@
+- model=simplemlp
+- model.features=[8,8,8]
+- model.input_length=512
+- exp=SimpleMLP_cd-hit0_full
+- run=mlp_f8_8_8
+- max_len=512
+- command=test
+- test=cd-hit0_full

@@ -1,0 +1,46 @@
+model_name: ${model._target_}
+command: test
+exp: SeqEncoder_cd-hit0_full
+run: enc_f8_32
+verbose: true
+cache_path: cache/
+valid_split: 0.1
+min_len: 0
+max_len: 512
+batch_size: 64
+nworkers: 4
+patience: 30
+max_epochs: 50
+lr: 0.05
+model:
+  _target_: src.models.seqencoder.SeqEncoder
+  verbose: true
+  train_len: 0
+  device: cuda
+  lr: 0.05
+  embedding_dim: 4
+  num_conv: 2
+  pool_mode: avg
+  features:
+  - 8
+  - 32
+  input_length: 512
+train:
+  train_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/limit128/train_0.csv
+  valid_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/limit128/valid_0.csv
+  out_path: results/${exp}/${run}/
+  continue_training: false
+  train_swaps: 0
+test:
+  test_file: data/ArchiveII/ArchiveII_seq_sim_pp_motifs/cd_hit_pp/cd_hit_test_0.csv
+  model_weights: results/${exp}/${run}/weights.pmt
+  out_path: results/${exp}/${run}/test.csv
+  test_swaps: 0
+pred:
+  pred_file: null
+  sequence_name: console_input
+  model_weights: null
+  out_path: null
+  logits: false
+  draw: false
+  draw_resolution: 128
